@@ -1,0 +1,596 @@
+Mplus VERSION 7.4
+MUTHEN & MUTHEN
+04/06/2025   2:05 PM
+
+INPUT INSTRUCTIONS
+
+  TITLE:
+          Causal rGE on differential parenting;
+
+  DATA:
+          FILE IS "c:\Repo\data_local\withinfamrGE_addh_full_sample_for_fa.csv";
+
+  VARIABLE:
+          Names are AID FAM sex age_1 age_3
+          white african native asian other hispanic
+          income par_ed
+          PC34A PC34B PC34C PC34D PC34E PC44A
+          H1WP9 H1WP10 H1PF1 H1PF2 H1PF3 H1PF4 H1PF5
+          H1WP13 H1WP14 H1PF23 H1PF24 H1PF25
+          H1TO29 H1TO33 H1TO9 H1DS14
+          H1ED19 H1ED20 H1ED22 H1ED23 H1ED24 H1PR2
+          H1DS2 H1DS12 H1FV8 H1DS6 H1DS9
+          H1DS10 H1DS13 H1DS11 H1FV7 H1DS7
+          H3DS1 H3DS5 H3DS18I H3DS17 H3DS2
+          H3DS3 H3DS6 H3DS4 H3DS18H H3HR23
+          H1TO15 H1TO17 H1TO5 H1TO32 H1TO36 H1TO42
+          H3TO38 H3TO40 H3TO7 H3TO110 H3TO113 H3TO119
+          H3RA1 H3RA2 H3RA3 H3RA4 H3RA5 H3RA6 H3RA7 H3RA8
+          H3RA9 H3RA10 H3RA11 H3RA12 H3RA13 H3RA14 H3RA15
+          H3RA16 H3RA17
+          par_age par_sex par_marry
+          PA61 PA62 PB22
+          PC10 PC11 PC12 PC17
+          PC32
+          H1WP1 H1WP2 H1WP3 H1WP4 H1WP5 H1WP6 H1WP7
+          H1WP17F H1WP17G H1WP17H H1WP18F H1WP18G H1WP18H;
+
+
+          usevariables are FAM
+          PC34A PC34B PC34C PC34D PC34E PC44A
+          !H1WP9 H1WP10 H1PF1 H1PF2 H1PF3 H1PF4 H1PF5
+          !H1WP13 H1WP14 H1PF23 H1PF24 H1PF25
+          !H1TO29 H1TO33 H1TO9 H1DS14
+          !H1ED19 H1ED20 H1ED22 H1ED23 H1ED24 H1PR2
+
+          !H1DS2 H1DS12 H1FV8 H1DS6 H1DS9
+          !H1DS10 H1DS13 H1DS11 H1FV7 H1DS7
+          !H3DS1 H3DS5 H3DS18I H3DS17 H3DS2
+          !H3DS3 H3DS6 H3DS4 H3DS18H H3HR23
+          !H1TO15 H1TO17 H1TO5 H1TO32 H1TO36 H1TO42
+          !H3TO38 H3TO40 H3TO7 H3TO110 H3TO113 H3TO119
+          !PA61 PA62 PB22
+          !PC10 PC11 PC12 PC17
+          !H1WP1 H1WP2 H1WP3 H1WP4 H1WP5 H1WP6 H1WP7
+          !H1WP17F H1WP17G H1WP17H H1WP18F H1WP18G H1WP18H
+          ;
+
+          IDVARIABLE = AID;
+
+          CATEGORICAL ARE
+          PC34A PC34B PC34C PC34D PC34E PC44A
+          !H1WP9 H1WP10 H1PF1 H1PF2 H1PF3 H1PF4 H1PF5
+          !H1WP13 H1WP14 H1PF23 H1PF24 H1PF25
+          !H1TO29 H1TO33 H1TO9 H1DS14
+          !H1ED19 H1ED20 H1ED22 H1ED23 H1ED24 H1PR2
+
+          !H1DS2 H1DS12 H1FV8 H1DS6 H1DS9
+          !H1DS10 H1DS13 H1DS11 H1FV7 H1DS7
+          !H3DS1 H3DS5 H3DS18I H3DS17 H3DS2
+          !H3DS3 H3DS6 H3DS4 H3DS18H H3HR23
+          !PC10 PC11 PC12 PC17
+          !H1WP1 H1WP2 H1WP3 H1WP4 H1WP5 H1WP6 H1WP7
+          !H1WP17F H1WP17G H1WP17H H1WP18F H1WP18G H1WP18H
+          ;
+
+          !CENSORED ARE
+          !H1TO15 (bi) H1TO17 (bi) H1TO5 (bi) H1TO32 (bi)
+          !H1TO36 (bi) H1TO42 (bi) H3TO38 (bi) H3TO40 (bi)
+          !H3TO7 (bi) H3TO110 (bi) H3TO113 (bi) H3TO119 (bi)
+          !PA61 (bi) PA62 (bi) PB22 (bi)
+          !;
+
+          CLUSTER IS FAM;
+
+          Missing are .;
+
+  DEFINE:
+
+
+  ANALYSIS:
+
+          TYPE = COMPLEX;
+          !ESTIMATOR = BAYES;
+          ESTIMATOR=WLSMV;
+          !BOOTSTRAP = 20000;
+          !FBITERATIONS= 20000;
+  MODEL:
+
+          f1 BY PC34A* PC34B PC34C PC34D PC34E PC44A;
+          !f2 BY H1WP9* H1WP10 H1PF1 H1PF2 H1PF3 H1PF4 H1PF5;
+          !f3 BY H1WP13* H1WP14 H1PF23 H1PF24 H1PF25;
+          !f4 BY H1TO29* H1TO33 H1TO9 H1DS14;
+          !f5 BY H1ED19* H1ED20 H1ED22 H1ED23 H1ED24 H1PR2;
+
+          !f6 BY H1DS2* H1DS12 H1FV8 H1DS6 H1DS9
+          !H1DS10 H1DS13 H1DS11 H1FV7 H1DS7;
+          !f7 BY H3DS1* H3DS5 H3DS18I H3DS17 H3DS2
+          !H3DS3 H3DS6 H3DS4 H3DS18H H3HR23;
+          !f8 BY H1TO15* H1TO17 H1TO5 H1TO32 H1TO36 H1TO42;
+          !f9 BY H3TO38* H3TO40 H3TO7 H3TO110 H3TO113 H3TO119;
+          !f10 BY PA61* PA62 PB22;
+          !f11 BY PC10* PC11 PC12 PC17;
+          !f12 BY H1WP1* H1WP2 H1WP3 H1WP4 H1WP5 H1WP6 H1WP7;
+          !f13 BY H1WP17F* H1WP17G H1WP17H H1WP18F H1WP18G H1WP18H;
+
+          [f1@0];
+          f1@1;
+
+
+  MODEL CONSTRAINT:
+
+  OUTPUT: TECH1 TECH8;
+  PLOT: TYPE = PLOT3;
+
+  SAVEDATA:
+  FILE IS withinfamrGE_factor_score_par_rel_parent;
+
+  SAVE = FSCORES;
+
+
+
+*** WARNING in OUTPUT command
+  TECH8 option is available only with analysis types MIXTURE, RANDOM, or
+  TWOLEVEL with estimators ML, MLF, or MLR or ALGORITHM=INTEGRATION.
+  Request for TECH8 is ignored.
+*** WARNING
+  Data set contains cases with missing on all variables.
+  These cases were not included in the analysis.
+  Number of cases with missing on all variables:  1238
+   2 WARNING(S) FOUND IN THE INPUT INSTRUCTIONS
+
+
+
+
+Causal rGE on differential parenting;
+
+SUMMARY OF ANALYSIS
+
+Number of groups                                                 1
+Number of observations                                        8736
+
+Number of dependent variables                                    6
+Number of independent variables                                  0
+Number of continuous latent variables                            1
+
+Observed dependent variables
+
+  Binary and ordered categorical (ordinal)
+   PC34A       PC34B       PC34C       PC34D       PC34E       PC44A
+
+Continuous latent variables
+   F1
+
+Variables with special functions
+
+  Cluster variable      FAM
+  ID variable           AID
+
+Estimator                                                    WLSMV
+Maximum number of iterations                                  1000
+Convergence criterion                                    0.500D-04
+Maximum number of steepest descent iterations                   20
+Maximum number of iterations for H1                           2000
+Convergence criterion for H1                             0.100D-03
+Parameterization                                             DELTA
+
+Input data file(s)
+  c:\Repo\data_local\withinfamrGE_addh_full_sample_for_fa.csv
+
+Input data format  FREE
+
+
+SUMMARY OF DATA
+
+     Number of missing data patterns            18
+     Number of clusters        7847
+
+
+
+COVARIANCE COVERAGE OF DATA
+
+Minimum covariance coverage value   0.100
+
+
+     PROPORTION OF DATA PRESENT
+
+
+           Covariance Coverage
+              PC34A         PC34B         PC34C         PC34D         PC34E
+              ________      ________      ________      ________      ________
+ PC34A          0.998
+ PC34B          0.996         0.997
+ PC34C          0.992         0.990         0.992
+ PC34D          0.996         0.994         0.990         0.996
+ PC34E          0.995         0.994         0.989         0.994         0.996
+ PC44A          0.992         0.990         0.985         0.990         0.989
+
+
+           Covariance Coverage
+              PC44A
+              ________
+ PC44A          0.993
+
+
+UNIVARIATE PROPORTIONS AND COUNTS FOR CATEGORICAL VARIABLES
+
+    PC34A
+      Category 1    0.002           15.000
+      Category 2    0.009           81.000
+      Category 3    0.111          969.000
+      Category 4    0.478         4167.000
+      Category 5    0.400         3490.000
+    PC34B
+      Category 1    0.015          132.000
+      Category 2    0.042          368.000
+      Category 3    0.245         2134.000
+      Category 4    0.433         3767.000
+      Category 5    0.265         2307.000
+    PC34C
+      Category 1    0.042          363.000
+      Category 2    0.073          635.000
+      Category 3    0.375         3246.000
+      Category 4    0.325         2815.000
+      Category 5    0.185         1607.000
+    PC34D
+      Category 1    0.010           84.000
+      Category 2    0.027          236.000
+      Category 3    0.144         1256.000
+      Category 4    0.302         2628.000
+      Category 5    0.517         4499.000
+    PC34E
+      Category 1    0.013          109.000
+      Category 2    0.019          162.000
+      Category 3    0.108          937.000
+      Category 4    0.235         2040.000
+      Category 5    0.627         5450.000
+    PC44A
+      Category 1    0.019          163.000
+      Category 2    0.050          438.000
+      Category 3    0.042          364.000
+      Category 4    0.405         3515.000
+      Category 5    0.484         4197.000
+
+
+
+THE MODEL ESTIMATION TERMINATED NORMALLY
+
+
+
+MODEL FIT INFORMATION
+
+Number of Free Parameters                       30
+
+Chi-Square Test of Model Fit
+
+          Value                            163.785*
+          Degrees of Freedom                     9
+          P-Value                           0.0000
+
+*   The chi-square value for MLM, MLMV, MLR, ULSMV, WLSM and WLSMV cannot be used
+    for chi-square difference testing in the regular way.  MLM, MLR and WLSM
+    chi-square difference testing is described on the Mplus website.  MLMV, WLSMV,
+    and ULSMV difference testing is done using the DIFFTEST option.
+
+RMSEA (Root Mean Square Error Of Approximation)
+
+          Estimate                           0.044
+          90 Percent C.I.                    0.039  0.050
+          Probability RMSEA <= .05           0.936
+
+CFI/TLI
+
+          CFI                                0.991
+          TLI                                0.986
+
+Chi-Square Test of Model Fit for the Baseline Model
+
+          Value                          18051.381
+          Degrees of Freedom                    15
+          P-Value                           0.0000
+
+WRMR (Weighted Root Mean Square Residual)
+
+          Value                              1.508
+
+
+
+MODEL RESULTS
+
+                                                    Two-Tailed
+                    Estimate       S.E.  Est./S.E.    P-Value
+
+ F1       BY
+    PC34A              0.768      0.007    106.202      0.000
+    PC34B              0.598      0.009     67.447      0.000
+    PC34C              0.475      0.010     47.397      0.000
+    PC34D              0.726      0.008     88.783      0.000
+    PC34E              0.400      0.013     31.136      0.000
+    PC44A              0.723      0.008     85.232      0.000
+
+ Means
+    F1                 0.000      0.000    999.000    999.000
+
+ Thresholds
+    PC34A$1           -2.925      0.085    -34.244      0.000
+    PC34A$2           -2.290      0.039    -58.277      0.000
+    PC34A$3           -1.165      0.018    -65.570      0.000
+    PC34A$4            0.253      0.014     17.941      0.000
+    PC34B$1           -2.166      0.035    -61.888      0.000
+    PC34B$2           -1.577      0.022    -70.433      0.000
+    PC34B$3           -0.517      0.015    -35.037      0.000
+    PC34B$4            0.628      0.015     41.384      0.000
+    PC34C$1           -1.729      0.025    -69.809      0.000
+    PC34C$2           -1.200      0.018    -65.857      0.000
+    PC34C$3           -0.026      0.014     -1.851      0.064
+    PC34C$4            0.895      0.016     54.787      0.000
+    PC34D$1           -2.340      0.041    -57.065      0.000
+    PC34D$2           -1.789      0.026    -69.620      0.000
+    PC34D$3           -0.911      0.016    -56.407      0.000
+    PC34D$4           -0.042      0.014     -3.037      0.002
+    PC34E$1           -2.240      0.038    -58.881      0.000
+    PC34E$2           -1.864      0.027    -68.241      0.000
+    PC34E$3           -1.085      0.018    -61.865      0.000
+    PC34E$4           -0.323      0.015    -22.173      0.000
+    PC44A$1           -2.080      0.032    -65.584      0.000
+    PC44A$2           -1.481      0.021    -70.723      0.000
+    PC44A$3           -1.220      0.018    -66.866      0.000
+    PC44A$4            0.041      0.014      2.919      0.004
+
+ Variances
+    F1                 1.000      0.000    999.000    999.000
+
+
+R-SQUARE
+
+    Observed                   Residual
+    Variable        Estimate   Variance
+
+    PC34A              0.590      0.410
+    PC34B              0.358      0.642
+    PC34C              0.226      0.774
+    PC34D              0.528      0.472
+    PC34E              0.160      0.840
+    PC44A              0.523      0.477
+
+
+QUALITY OF NUMERICAL RESULTS
+
+     Condition Number for the Information Matrix              0.720E-02
+       (ratio of smallest to largest eigenvalue)
+
+
+TECHNICAL 1 OUTPUT
+
+
+     PARAMETER SPECIFICATION
+
+
+           TAU
+              PC34A$1       PC34A$2       PC34A$3       PC34A$4       PC34B$1
+              ________      ________      ________      ________      ________
+      1           1             2             3             4             5
+
+
+           TAU
+              PC34B$2       PC34B$3       PC34B$4       PC34C$1       PC34C$2
+              ________      ________      ________      ________      ________
+      1           6             7             8             9            10
+
+
+           TAU
+              PC34C$3       PC34C$4       PC34D$1       PC34D$2       PC34D$3
+              ________      ________      ________      ________      ________
+      1          11            12            13            14            15
+
+
+           TAU
+              PC34D$4       PC34E$1       PC34E$2       PC34E$3       PC34E$4
+              ________      ________      ________      ________      ________
+      1          16            17            18            19            20
+
+
+           TAU
+              PC44A$1       PC44A$2       PC44A$3       PC44A$4
+              ________      ________      ________      ________
+      1          21            22            23            24
+
+
+           NU
+              PC34A         PC34B         PC34C         PC34D         PC34E
+              ________      ________      ________      ________      ________
+      1           0             0             0             0             0
+
+
+           NU
+              PC44A
+              ________
+      1           0
+
+
+           LAMBDA
+              F1
+              ________
+ PC34A             25
+ PC34B             26
+ PC34C             27
+ PC34D             28
+ PC34E             29
+ PC44A             30
+
+
+           ALPHA
+              F1
+              ________
+      1           0
+
+
+           BETA
+              F1
+              ________
+ F1                 0
+
+
+           PSI
+              F1
+              ________
+ F1                 0
+
+
+     STARTING VALUES
+
+
+           TAU
+              PC34A$1       PC34A$2       PC34A$3       PC34A$4       PC34B$1
+              ________      ________      ________      ________      ________
+      1        -2.925        -2.290        -1.165         0.253        -2.166
+
+
+           TAU
+              PC34B$2       PC34B$3       PC34B$4       PC34C$1       PC34C$2
+              ________      ________      ________      ________      ________
+      1        -1.577        -0.517         0.628        -1.729        -1.200
+
+
+           TAU
+              PC34C$3       PC34C$4       PC34D$1       PC34D$2       PC34D$3
+              ________      ________      ________      ________      ________
+      1        -0.026         0.895        -2.340        -1.789        -0.911
+
+
+           TAU
+              PC34D$4       PC34E$1       PC34E$2       PC34E$3       PC34E$4
+              ________      ________      ________      ________      ________
+      1        -0.042        -2.240        -1.864        -1.085        -0.323
+
+
+           TAU
+              PC44A$1       PC44A$2       PC44A$3       PC44A$4
+              ________      ________      ________      ________
+      1        -2.080        -1.481        -1.220         0.041
+
+
+           NU
+              PC34A         PC34B         PC34C         PC34D         PC34E
+              ________      ________      ________      ________      ________
+      1         0.000         0.000         0.000         0.000         0.000
+
+
+           NU
+              PC44A
+              ________
+      1         0.000
+
+
+           LAMBDA
+              F1
+              ________
+ PC34A          1.000
+ PC34B          1.000
+ PC34C          1.000
+ PC34D          1.000
+ PC34E          1.000
+ PC44A          1.000
+
+
+           ALPHA
+              F1
+              ________
+      1         0.000
+
+
+           BETA
+              F1
+              ________
+ F1             0.000
+
+
+           PSI
+              F1
+              ________
+ F1             1.000
+
+
+SAMPLE STATISTICS FOR ESTIMATED FACTOR SCORES
+
+
+     SAMPLE STATISTICS
+
+
+           Means
+              F1
+              ________
+ 1             -0.019
+
+
+           Covariances
+              F1
+              ________
+ F1             0.706
+
+
+           Correlations
+              F1
+              ________
+ F1             1.000
+
+
+PLOT INFORMATION
+
+The following plots are available:
+
+  Histograms (sample values, estimated factor scores, estimated values, residuals)
+  Scatterplots (sample values, estimated factor scores, estimated values, residuals)
+  Sample proportions and estimated probabilities
+  Item characteristic curves
+  Information curves
+  Latent variable distribution plots
+
+SAVEDATA INFORMATION
+
+
+  Save file
+    withinfamrGE_factor_score_par_rel_parent
+
+  Order and format of variables
+
+    PC34A          F10.3
+    PC34B          F10.3
+    PC34C          F10.3
+    PC34D          F10.3
+    PC34E          F10.3
+    PC44A          F10.3
+    AID            I9
+    F1             F10.3
+    FAM            I9
+
+  Save file format
+    6F10.3 I9 F10.3 I9
+
+  Save file record length    10000
+
+
+DIAGRAM INFORMATION
+
+  Use View Diagram under the Diagram menu in the Mplus Editor to view the diagram.
+  If running Mplus from the Mplus Diagrammer, the diagram opens automatically.
+
+  Diagram output
+    c:\repo\2024_within_fam_rge\analysis\factor_score_par_rel_parent.dgm
+
+     Beginning Time:  14:05:41
+        Ending Time:  14:05:42
+       Elapsed Time:  00:00:01
+
+
+
+MUTHEN & MUTHEN
+3463 Stoner Ave.
+Los Angeles, CA  90066
+
+Tel: (310) 391-9971
+Fax: (310) 391-8971
+Web: www.StatModel.com
+Support: Support@StatModel.com
+
+Copyright (c) 1998-2015 Muthen & Muthen

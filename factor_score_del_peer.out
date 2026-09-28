@@ -1,0 +1,514 @@
+Mplus VERSION 7.4
+MUTHEN & MUTHEN
+04/06/2025   2:05 PM
+
+INPUT INSTRUCTIONS
+
+  TITLE:
+          Causal rGE on differential parenting;
+
+  DATA:
+          FILE IS "c:\Repo\data_local\withinfamrGE_addh_full_sample_for_fa.csv";
+
+  VARIABLE:
+          Names are AID FAM sex age_1 age_3
+          white african native asian other hispanic
+          income par_ed
+          PC34A PC34B PC34C PC34D PC34E PC44A
+          H1WP9 H1WP10 H1PF1 H1PF2 H1PF3 H1PF4 H1PF5
+          H1WP13 H1WP14 H1PF23 H1PF24 H1PF25
+          H1TO29 H1TO33 H1TO9 H1DS14
+          H1ED19 H1ED20 H1ED22 H1ED23 H1ED24 H1PR2
+          H1DS2 H1DS12 H1FV8 H1DS6 H1DS9
+          H1DS10 H1DS13 H1DS11 H1FV7 H1DS7
+          H3DS1 H3DS5 H3DS18I H3DS17 H3DS2
+          H3DS3 H3DS6 H3DS4 H3DS18H H3HR23
+          H1TO15 H1TO17 H1TO5 H1TO32 H1TO36 H1TO42
+          H3TO38 H3TO40 H3TO7 H3TO110 H3TO113 H3TO119
+          H3RA1 H3RA2 H3RA3 H3RA4 H3RA5 H3RA6 H3RA7 H3RA8
+          H3RA9 H3RA10 H3RA11 H3RA12 H3RA13 H3RA14 H3RA15
+          H3RA16 H3RA17
+          par_age par_sex par_marry
+          PA61 PA62 PB22
+          PC10 PC11 PC12 PC17
+          PC32
+          H1WP1 H1WP2 H1WP3 H1WP4 H1WP5 H1WP6 H1WP7
+          H1WP17F H1WP17G H1WP17H H1WP18F H1WP18G H1WP18H;
+
+
+          usevariables are FAM
+          !PC34A PC34B PC34C PC34D PC34E PC44A
+          !H1WP9 H1WP10 H1PF1 H1PF2 H1PF3 H1PF4 H1PF5
+          !H1WP13 H1WP14 H1PF23 H1PF24 H1PF25
+          H1TO29 H1TO33 H1TO9 H1DS14
+          !H1ED19 H1ED20 H1ED22 H1ED23 H1ED24 H1PR2
+
+          !H1DS2 H1DS12 H1FV8 H1DS6 H1DS9
+          !H1DS10 H1DS13 H1DS11 H1FV7 H1DS7
+          !H3DS1 H3DS5 H3DS18I H3DS17 H3DS2
+          !H3DS3 H3DS6 H3DS4 H3DS18H H3HR23
+          !H1TO15 H1TO17 H1TO5 H1TO32 H1TO36 H1TO42
+          !H3TO38 H3TO40 H3TO7 H3TO110 H3TO113 H3TO119
+          !PA61 PA62 PB22
+          !PC10 PC11 PC12 PC17
+          !H1WP1 H1WP2 H1WP3 H1WP4 H1WP5 H1WP6 H1WP7
+          !H1WP17F H1WP17G H1WP17H H1WP18F H1WP18G H1WP18H
+          ;
+
+          IDVARIABLE = AID;
+
+          CATEGORICAL ARE
+          !PC34A PC34B PC34C PC34D PC34E PC44A
+          !H1WP9 H1WP10 H1PF1 H1PF2 H1PF3 H1PF4 H1PF5
+          !H1WP13 H1WP14 H1PF23 H1PF24 H1PF25
+          H1TO29 H1TO33 H1TO9 H1DS14
+          !H1ED19 H1ED20 H1ED22 H1ED23 H1ED24 H1PR2
+
+          !H1DS2 H1DS12 H1FV8 H1DS6 H1DS9
+          !H1DS10 H1DS13 H1DS11 H1FV7 H1DS7
+          !H3DS1 H3DS5 H3DS18I H3DS17 H3DS2
+          !H3DS3 H3DS6 H3DS4 H3DS18H H3HR23
+          !PC10 PC11 PC12 PC17
+          !H1WP1 H1WP2 H1WP3 H1WP4 H1WP5 H1WP6 H1WP7
+          !H1WP17F H1WP17G H1WP17H H1WP18F H1WP18G H1WP18H
+          ;
+
+          !CENSORED ARE
+          !H1TO15 (bi) H1TO17 (bi) H1TO5 (bi) H1TO32 (bi)
+          !H1TO36 (bi) H1TO42 (bi) H3TO38 (bi) H3TO40 (bi)
+          !H3TO7 (bi) H3TO110 (bi) H3TO113 (bi) H3TO119 (bi)
+          !PA61 (bi) PA62 (bi) PB22 (bi)
+          !;
+
+          CLUSTER IS FAM;
+
+          Missing are .;
+
+  DEFINE:
+
+
+  ANALYSIS:
+
+          TYPE = COMPLEX;
+          !ESTIMATOR = BAYES;
+          ESTIMATOR=WLSMV;
+          !BOOTSTRAP = 20000;
+          !FBITERATIONS= 20000;
+  MODEL:
+
+          !f1 BY PC34A* PC34B PC34C PC34D PC34E PC44A;
+          !f2 BY H1WP9* H1WP10 H1PF1 H1PF2 H1PF3 H1PF4 H1PF5;
+          !f3 BY H1WP13* H1WP14 H1PF23 H1PF24 H1PF25;
+          f4 BY H1TO29* H1TO33 H1TO9 H1DS14;
+          !f5 BY H1ED19* H1ED20 H1ED22 H1ED23 H1ED24 H1PR2;
+
+          !f6 BY H1DS2* H1DS12 H1FV8 H1DS6 H1DS9
+          !H1DS10 H1DS13 H1DS11 H1FV7 H1DS7;
+          !f7 BY H3DS1* H3DS5 H3DS18I H3DS17 H3DS2
+          !H3DS3 H3DS6 H3DS4 H3DS18H H3HR23;
+          !f8 BY H1TO15* H1TO17 H1TO5 H1TO32 H1TO36 H1TO42;
+          !f9 BY H3TO38* H3TO40 H3TO7 H3TO110 H3TO113 H3TO119;
+          !f10 BY PA61* PA62 PB22;
+          !f11 BY PC10* PC11 PC12 PC17;
+          !f12 BY H1WP1* H1WP2 H1WP3 H1WP4 H1WP5 H1WP6 H1WP7;
+          !f13 BY H1WP17F* H1WP17G H1WP17H H1WP18F H1WP18G H1WP18H;
+
+          [f4@0];
+          f4@1;
+
+
+  MODEL CONSTRAINT:
+
+  OUTPUT: TECH1 TECH8;
+  PLOT: TYPE = PLOT3;
+
+  SAVEDATA:
+  FILE IS withinfamrGE_factor_score_del_peer;
+
+  SAVE = FSCORES;
+
+
+
+*** WARNING in OUTPUT command
+  TECH8 option is available only with analysis types MIXTURE, RANDOM, or
+  TWOLEVEL with estimators ML, MLF, or MLR or ALGORITHM=INTEGRATION.
+  Request for TECH8 is ignored.
+*** WARNING
+  Data set contains cases with missing on all variables.
+  These cases were not included in the analysis.
+  Number of cases with missing on all variables:  40
+   2 WARNING(S) FOUND IN THE INPUT INSTRUCTIONS
+
+
+
+
+Causal rGE on differential parenting;
+
+SUMMARY OF ANALYSIS
+
+Number of groups                                                 1
+Number of observations                                        9934
+
+Number of dependent variables                                    4
+Number of independent variables                                  0
+Number of continuous latent variables                            1
+
+Observed dependent variables
+
+  Binary and ordered categorical (ordinal)
+   H1TO29      H1TO33      H1TO9       H1DS14
+
+Continuous latent variables
+   F4
+
+Variables with special functions
+
+  Cluster variable      FAM
+  ID variable           AID
+
+Estimator                                                    WLSMV
+Maximum number of iterations                                  1000
+Convergence criterion                                    0.500D-04
+Maximum number of steepest descent iterations                   20
+Maximum number of iterations for H1                           2000
+Convergence criterion for H1                             0.100D-03
+Parameterization                                             DELTA
+
+Input data file(s)
+  c:\Repo\data_local\withinfamrGE_addh_full_sample_for_fa.csv
+
+Input data format  FREE
+
+
+SUMMARY OF DATA
+
+     Number of missing data patterns            14
+     Number of clusters        8900
+
+
+
+COVARIANCE COVERAGE OF DATA
+
+Minimum covariance coverage value   0.100
+
+
+     PROPORTION OF DATA PRESENT
+
+
+           Covariance Coverage
+              H1TO29        H1TO33        H1TO9         H1DS14
+              ________      ________      ________      ________
+ H1TO29         0.986
+ H1TO33         0.981         0.987
+ H1TO9          0.980         0.979         0.987
+ H1DS14         0.985         0.986         0.986         0.998
+
+
+UNIVARIATE PROPORTIONS AND COUNTS FOR CATEGORICAL VARIABLES
+
+    H1TO29
+      Category 1    0.202         1982.000
+      Category 2    0.148         1452.000
+      Category 3    0.214         2100.000
+      Category 4    0.435         4262.000
+    H1TO33
+      Category 1    0.096          943.000
+      Category 2    0.085          837.000
+      Category 3    0.159         1562.000
+      Category 4    0.659         6461.000
+    H1TO9
+      Category 1    0.127         1245.000
+      Category 2    0.120         1180.000
+      Category 3    0.209         2047.000
+      Category 4    0.544         5337.000
+    H1DS14
+      Category 1    0.021          207.000
+      Category 2    0.025          247.000
+      Category 3    0.150         1484.000
+      Category 4    0.805         7977.000
+
+
+
+THE MODEL ESTIMATION TERMINATED NORMALLY
+
+
+
+MODEL FIT INFORMATION
+
+Number of Free Parameters                       16
+
+Chi-Square Test of Model Fit
+
+          Value                             19.097*
+          Degrees of Freedom                     2
+          P-Value                           0.0001
+
+*   The chi-square value for MLM, MLMV, MLR, ULSMV, WLSM and WLSMV cannot be used
+    for chi-square difference testing in the regular way.  MLM, MLR and WLSM
+    chi-square difference testing is described on the Mplus website.  MLMV, WLSMV,
+    and ULSMV difference testing is done using the DIFFTEST option.
+
+RMSEA (Root Mean Square Error Of Approximation)
+
+          Estimate                           0.029
+          90 Percent C.I.                    0.018  0.042
+          Probability RMSEA <= .05           0.997
+
+CFI/TLI
+
+          CFI                                0.999
+          TLI                                0.997
+
+Chi-Square Test of Model Fit for the Baseline Model
+
+          Value                          16018.182
+          Degrees of Freedom                     6
+          P-Value                           0.0000
+
+WRMR (Weighted Root Mean Square Residual)
+
+          Value                              0.732
+
+
+
+MODEL RESULTS
+
+                                                    Two-Tailed
+                    Estimate       S.E.  Est./S.E.    P-Value
+
+ F4       BY
+    H1TO29             0.823      0.007    110.364      0.000
+    H1TO33             0.835      0.008    110.107      0.000
+    H1TO9              0.745      0.008     91.845      0.000
+    H1DS14             0.367      0.015     24.713      0.000
+
+ Means
+    F4                 0.000      0.000    999.000    999.000
+
+ Thresholds
+    H1TO29$1          -0.833      0.015    -57.044      0.000
+    H1TO29$2          -0.384      0.013    -29.024      0.000
+    H1TO29$3           0.163      0.013     12.571      0.000
+    H1TO33$1          -1.304      0.018    -74.025      0.000
+    H1TO33$2          -0.909      0.015    -60.370      0.000
+    H1TO33$3          -0.410      0.013    -30.587      0.000
+    H1TO9$1           -1.141      0.017    -69.109      0.000
+    H1TO9$2           -0.683      0.014    -48.509      0.000
+    H1TO9$3           -0.111      0.013     -8.508      0.000
+    H1DS14$1          -2.036      0.029    -70.703      0.000
+    H1DS14$2          -1.687      0.022    -76.468      0.000
+    H1DS14$3          -0.858      0.015    -58.569      0.000
+
+ Variances
+    F4                 1.000      0.000    999.000    999.000
+
+
+R-SQUARE
+
+    Observed                   Residual
+    Variable        Estimate   Variance
+
+    H1TO29             0.678      0.322
+    H1TO33             0.697      0.303
+    H1TO9              0.554      0.446
+    H1DS14             0.135      0.865
+
+
+QUALITY OF NUMERICAL RESULTS
+
+     Condition Number for the Information Matrix              0.328E-01
+       (ratio of smallest to largest eigenvalue)
+
+
+TECHNICAL 1 OUTPUT
+
+
+     PARAMETER SPECIFICATION
+
+
+           TAU
+              H1TO29$1      H1TO29$2      H1TO29$3      H1TO33$1      H1TO33$2
+              ________      ________      ________      ________      ________
+      1           1             2             3             4             5
+
+
+           TAU
+              H1TO33$3      H1TO9$1       H1TO9$2       H1TO9$3       H1DS14$1
+              ________      ________      ________      ________      ________
+      1           6             7             8             9            10
+
+
+           TAU
+              H1DS14$2      H1DS14$3
+              ________      ________
+      1          11            12
+
+
+           NU
+              H1TO29        H1TO33        H1TO9         H1DS14
+              ________      ________      ________      ________
+      1           0             0             0             0
+
+
+           LAMBDA
+              F4
+              ________
+ H1TO29            13
+ H1TO33            14
+ H1TO9             15
+ H1DS14            16
+
+
+           ALPHA
+              F4
+              ________
+      1           0
+
+
+           BETA
+              F4
+              ________
+ F4                 0
+
+
+           PSI
+              F4
+              ________
+ F4                 0
+
+
+     STARTING VALUES
+
+
+           TAU
+              H1TO29$1      H1TO29$2      H1TO29$3      H1TO33$1      H1TO33$2
+              ________      ________      ________      ________      ________
+      1        -0.833        -0.384         0.163        -1.304        -0.909
+
+
+           TAU
+              H1TO33$3      H1TO9$1       H1TO9$2       H1TO9$3       H1DS14$1
+              ________      ________      ________      ________      ________
+      1        -0.410        -1.141        -0.683        -0.111        -2.036
+
+
+           TAU
+              H1DS14$2      H1DS14$3
+              ________      ________
+      1        -1.687        -0.858
+
+
+           NU
+              H1TO29        H1TO33        H1TO9         H1DS14
+              ________      ________      ________      ________
+      1         0.000         0.000         0.000         0.000
+
+
+           LAMBDA
+              F4
+              ________
+ H1TO29         1.000
+ H1TO33         1.000
+ H1TO9          1.000
+ H1DS14         1.000
+
+
+           ALPHA
+              F4
+              ________
+      1         0.000
+
+
+           BETA
+              F4
+              ________
+ F4             0.000
+
+
+           PSI
+              F4
+              ________
+ F4             1.000
+
+
+SAMPLE STATISTICS FOR ESTIMATED FACTOR SCORES
+
+
+     SAMPLE STATISTICS
+
+
+           Means
+              F4
+              ________
+ 1             -0.044
+
+
+           Covariances
+              F4
+              ________
+ F4             0.620
+
+
+           Correlations
+              F4
+              ________
+ F4             1.000
+
+
+PLOT INFORMATION
+
+The following plots are available:
+
+  Histograms (sample values, estimated factor scores, estimated values, residuals)
+  Scatterplots (sample values, estimated factor scores, estimated values, residuals)
+  Sample proportions and estimated probabilities
+  Item characteristic curves
+  Information curves
+  Latent variable distribution plots
+
+SAVEDATA INFORMATION
+
+
+  Save file
+    withinfamrGE_factor_score_del_peer
+
+  Order and format of variables
+
+    H1TO29         F10.3
+    H1TO33         F10.3
+    H1TO9          F10.3
+    H1DS14         F10.3
+    AID            I9
+    F4             F10.3
+    FAM            I9
+
+  Save file format
+    4F10.3 I9 F10.3 I9
+
+  Save file record length    10000
+
+
+DIAGRAM INFORMATION
+
+  Use View Diagram under the Diagram menu in the Mplus Editor to view the diagram.
+  If running Mplus from the Mplus Diagrammer, the diagram opens automatically.
+
+  Diagram output
+    c:\repo\2024_within_fam_rge\analysis\factor_score_del_peer.dgm
+
+     Beginning Time:  14:05:01
+        Ending Time:  14:05:02
+       Elapsed Time:  00:00:01
+
+
+
+MUTHEN & MUTHEN
+3463 Stoner Ave.
+Los Angeles, CA  90066
+
+Tel: (310) 391-9971
+Fax: (310) 391-8971
+Web: www.StatModel.com
+Support: Support@StatModel.com
+
+Copyright (c) 1998-2015 Muthen & Muthen
